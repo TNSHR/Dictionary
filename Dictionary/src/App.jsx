@@ -9,34 +9,28 @@ function App() {
   ]);
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [definition, setDefinition] = useState("");
-  const [notFound, setNotFound] = useState(false);
+  const [searched, setSearched] = useState(false);
+  const [result, setResult] = useState("");
 
   const handleSearch = () => {
-    const lowerSearch = searchTerm.trim().toLowerCase();
-
-  if (!lowerSearch) {
-    setDefinition("");
-    setNotFound(false); // or true based on test logic
-    return;
-  }
+    const term = searchTerm.trim().toLowerCase();
 
     const found = dictionary.find(
-      (item) => item.word.toLowerCase() === lowerSearch
+      (item) => item.word.toLowerCase() === term
     );
 
     if (found) {
-      setDefinition(found.meaning);
-      setNotFound(false);
+      setResult(found.meaning);
     } else {
-      setDefinition("");
-      setNotFound(true);
+      setResult("Word not found in the dictionary.");
     }
+
+    setSearched(true);
   };
 
   return (
     <div className="container">
-      <h1>Dictionary App</h1> {/* 🔧 Required for test to pass */}
+      <h1>Dictionary App</h1>
 
       <input
         type="text"
@@ -48,21 +42,13 @@ function App() {
             handleSearch();
           }
         }}
-        autoFocus
-        className="search-input" {/* 🔧 Required for test to pass */  }
       />
       <button onClick={handleSearch}>Search</button>
 
-      {definition && (
+      {searched && (
         <div>
           <h3>Definition:</h3>
-          <p>{definition}</p>
-        </div>
-      )}
-
-      {notFound && (
-        <div>
-          <p>Word not found in the dictionary.</p> {/* 🔧 Exact match required */}
+          <p>{result}</p>
         </div>
       )}
     </div>
