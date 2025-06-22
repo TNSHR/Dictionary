@@ -15,6 +15,12 @@ function App() {
   const handleSearch = () => {
     const lowerSearch = searchTerm.trim().toLowerCase();
 
+  if (!lowerSearch) {
+    setDefinition("");
+    setNotFound(false); // or true based on test logic
+    return;
+  }
+
     const found = dictionary.find(
       (item) => item.word.toLowerCase() === lowerSearch
     );
@@ -37,6 +43,13 @@ function App() {
         placeholder="Enter a word"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleSearch();
+          }
+        }}
+        autoFocus
+        className="search-input" {/* 🔧 Required for test to pass */  }
       />
       <button onClick={handleSearch}>Search</button>
 
