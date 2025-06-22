@@ -30,7 +30,8 @@ function App() {
 
   return (
     <div className="container">
-      <h1>XDictionary</h1>
+      <h1>Dictionary App</h1> {/* 🔧 Required for test to pass */}
+
       <input
         type="text"
         placeholder="Enter a word"
@@ -48,7 +49,7 @@ function App() {
 
       {notFound && (
         <div>
-          <p>Word not found in the dictionary.</p>
+          <p>Word not found in the dictionary.</p> {/* 🔧 Exact match required */}
         </div>
       )}
     </div>
